@@ -257,7 +257,7 @@ export default function Portfolio() {
                 }}
               >
                 <Image
-                  src="/perfil.png" 
+                  src="\fotoperfil.png" 
                   alt="Marcos Estevam - Especialista em Dados"
                   fill
                   className="object-cover grayscale-[30%] group-hover:grayscale-0 transition-all duration-700"
