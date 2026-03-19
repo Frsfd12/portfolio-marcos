@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+/* Animação para o carrossel HORIZONTAL no topo */
+@keyframes scrollLeft {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); } /* Move para a esquerda */
+}
+
+.animate-scrollHorizontal {
+  display: flex;
+  width: max-content;
+  animation: scrollLeft 30s linear infinite;
+}
+
+/* Estilos Globais */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #e2e8f0; /* olive-200 aproximado */
+  color: #1c1917;
+}
