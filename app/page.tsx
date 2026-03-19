@@ -265,7 +265,7 @@ export default function Portfolio() {
           >
               <div className="inline-flex items-center gap-2 px-4 py-1.5 mb-8 text-sm font-bold uppercase tracking-widest border rounded-full text-orange-700 border-orange-200 bg-orange-50/80 justify-center md:justify-start">
                 <Sparkles size={16} className="text-orange-500" />
-                Especialista em Dados
+                Analista de Dados
               </div>
               
               <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-4 text-zinc-950 leading-[1.1]">
