@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, BarChart3, TerminalSquare, Github, Linkedin, Mail, ExternalLink, Send, ChevronDown, Sparkles, Brain, TrendingUp, Database, Code, Zap, Award, Briefcase, Users } from 'lucide-react';
+import { ArrowRight, BarChart3, TerminalSquare, Github, Linkedin, Mail, ExternalLink, Send } from 'lucide-react';
 import Image from 'next/image';
 
 // --- CONFIGURAÇÃO DAS PARTÍCULAS ---
@@ -63,7 +63,7 @@ const ImageCarousel = ({ images }: { images: string[] }) => {
   );
 };
 
-// --- MEUS PROJETOS REAIS (TEXTOS ORIGINAIS PRESERVADOS, APENAS PEQUENOS AJUSTES) ---
+// --- MEUS PROJETOS REAIS ---
 const dashboards = [
   {
     id: 1,
@@ -91,7 +91,7 @@ const dashboards = [
   }
 ];
 
-// --- DADOS DA RECOMENDAÇÃO (TEXTO ORIGINAL PRESERVADO) ---
+// --- DADOS DA RECOMENDAÇÃO ---
 const testimonials = [
   {
     id: 1,
@@ -102,22 +102,11 @@ const testimonials = [
   }
 ];
 
-// --- HABILIDADES EM DESTAQUE ---
-const skills = [
-  { name: 'Python', icon: <Code size={20} />, level: 90 },
-  { name: 'Power BI', icon: <BarChart3 size={20} />, level: 95 },
-  { name: 'SQL', icon: <Database size={20} />, level: 90 },
-  { name: 'Machine Learning', icon: <Brain size={20} />, level: 75 },
-  { name: 'Estatística', icon: <TrendingUp size={20} />, level: 85 },
-  { name: 'DAX', icon: <Zap size={20} />, level: 90 },
-];
-
 export default function Portfolio() {
   const [githubProjects, setGithubProjects] = useState<any[]>([]);
   const [isDissolving, setIsDissolving] = useState(false);
-  const [formStatus, setFormStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
 
-  useEffect(() => {
+useEffect(() => {
     fetch('https://api.github.com/users/Frsfd12/repos?sort=updated&per_page=6')
       .then(res => res.json())
       .then(data => {
@@ -140,40 +129,11 @@ export default function Portfolio() {
     }, 600); 
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setFormStatus('sending');
-    
-    const form = e.currentTarget;
-    const formData = new FormData(form);
-    
-    try {
-      const response = await fetch('https://formspree.io/f/xojkygvj', {
-        method: 'POST',
-        body: formData,
-        headers: {
-          'Accept': 'application/json'
-        }
-      });
-      
-      if (response.ok) {
-        setFormStatus('success');
-        form.reset();
-        setTimeout(() => setFormStatus('idle'), 3000);
-      } else {
-        setFormStatus('error');
-        setTimeout(() => setFormStatus('idle'), 3000);
-      }
-    } catch {
-      setFormStatus('error');
-      setTimeout(() => setFormStatus('idle'), 3000);
-    }
-  };
-
   return (
+    // FUNDO OLIVE-200 BASE
     <div className="min-h-screen bg-[#e6e8e3] text-zinc-900 selection:bg-orange-100 font-sans overflow-x-hidden">
       
-      {/* 1. HERO SECTION - TEXTO MAIS PROFISSIONAL */}
+      {/* 1. HERO SECTION */}
       <section className="relative flex flex-col items-center justify-center min-h-screen px-6 py-20 overflow-hidden">
         
         <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-orange-200/30 blur-[150px] rounded-full pointer-events-none z-10" />
@@ -225,7 +185,7 @@ export default function Portfolio() {
               >
                 <Image
                   src="/fotoperfil.png"
-                  alt="Marcos Estevam - Especialista em Dados"
+                  alt="Marcos Estevam"
                   fill
                   className="object-cover grayscale-[30%] group-hover:grayscale-0 transition-all duration-700"
                   priority 
@@ -257,27 +217,15 @@ export default function Portfolio() {
               transition={{ delay: 0.4, duration: 0.8 }}
               className="flex-1 text-center md:text-left order-2"
           >
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 mb-8 text-sm font-bold uppercase tracking-widest border rounded-full text-orange-700 border-orange-200 bg-orange-50/80 justify-center md:justify-start">
-                <Sparkles size={16} className="text-orange-500" />
-                Especialista em Dados
+              <div className="inline-flex items-center gap-2 px-3 py-1 mb-8 text-xs font-bold uppercase tracking-widest border rounded-md text-orange-700 border-orange-200 bg-orange-50 justify-center md:justify-start">
+                  Especialista em Dados
               </div>
-              
-              <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-4 text-zinc-950 leading-[1.1]">
-                  Marcos <br /> <span className="text-orange-500 font-light text-4xl md:text-6xl italic">Estevam</span>
+              <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 text-zinc-950 leading-[1.1]">
+                  Marcos <br /> <span className="text-orange-500 font-light text-4xl md:text-6xl italic">Estevam.</span>
               </h1>
-              
-              <p className="text-lg md:text-xl text-zinc-700 mb-6 max-w-xl mx-auto md:mx-0 leading-relaxed">
-                  Transformo dados em decisões com <span className="text-orange-700 font-medium">Dashboards Estratégicos</span>, automações eficientes em Python e análises que geram impacto real para o setor público e privado.
+              <p className="text-lg md:text-xl text-zinc-700 mb-10 max-w-xl mx-auto md:mx-0 leading-relaxed">
+                  Transformo dados em decisões com <span className="text-orange-700 font-medium">Dashboards Estratégicos</span> e automações eficientes em Python.
               </p>
-              
-              <div className="flex flex-wrap gap-3 justify-center md:justify-start mb-8">
-                {skills.slice(0, 4).map(skill => (
-                  <span key={skill.name} className="flex items-center gap-1.5 px-3 py-1.5 bg-white/60 border border-orange-100 rounded-full text-xs font-medium text-zinc-700">
-                    {skill.icon} {skill.name}
-                  </span>
-                ))}
-              </div>
-              
               <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4">
                   <a href="#dashboards" onClick={handleVerProjetos} className="flex items-center gap-2 px-10 py-4 font-bold text-white transition-all bg-zinc-900 rounded-lg hover:bg-orange-600 hover:shadow-2xl hover:-translate-y-0.5 active:scale-95 group">
                       Ver Projetos <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
@@ -286,54 +234,12 @@ export default function Portfolio() {
                       Contato
                   </a>
               </div>
-
-              <div className="mt-12 flex items-center gap-4 justify-center md:justify-start text-zinc-500">
-                <a href="https://www.linkedin.com/in/marcos-estevam/" target="_blank" rel="noreferrer" className="hover:text-orange-600 transition-colors">
-                  <Linkedin size={20} />
-                </a>
-                <a href="https://github.com/Frsfd12" target="_blank" rel="noreferrer" className="hover:text-orange-600 transition-colors">
-                  <Github size={20} />
-                </a>
-                <span className="text-xs text-zinc-400">|</span>
-                <span className="text-sm">Belo Horizonte / MG</span>
-              </div>
           </motion.div>
-        </div>
-
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce hidden md:block">
-          <ChevronDown size={24} className="text-zinc-400" />
-        </div>
-      </section>
-
-      {/* SEÇÃO DE HABILIDADES - NOVA */}
-      <section className="relative w-full py-16 bg-[#dce0d9]/30">
-        <div className="max-w-7xl mx-auto px-6">
-          <h2 className="text-2xl font-bold text-center mb-12 text-zinc-800">Expertise Técnica</h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-            {skills.map((skill) => (
-              <motion.div
-                key={skill.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
-                className="text-center"
-              >
-                <div className="w-16 h-16 mx-auto mb-3 rounded-full bg-white border-2 border-orange-100 flex items-center justify-center text-orange-600">
-                  {skill.icon}
-                </div>
-                <h3 className="font-bold text-sm">{skill.name}</h3>
-                <div className="w-full bg-zinc-200 h-1 rounded-full mt-2">
-                  <div className="bg-orange-500 h-1 rounded-full" style={{ width: `${skill.level}%` }}></div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
         </div>
       </section>
 
       {/* =========================================
-          2. DASHBOARDS SECTION - TÍTULO MELHORADO
+          2. DASHBOARDS SECTION
           ========================================= */}
       <section id="dashboards" className="relative w-full py-32 overflow-hidden">
         
@@ -346,12 +252,9 @@ export default function Portfolio() {
         />
 
         <div className="relative z-10 max-w-7xl mx-auto px-6">
-          <div className="mb-16 text-center md:text-left">
-            <span className="text-orange-500 font-bold text-sm uppercase tracking-widest mb-2 block">Portfólio</span>
-            <h2 className="text-4xl md:text-5xl font-bold text-zinc-900 mb-4">Business Intelligence</h2>
-            <p className="text-zinc-600 max-w-2xl mx-auto md:mx-0">
-              Dashboards estratégicos desenvolvidos para o IPSEMG, entregando insights que subsidiam a tomada de decisão da diretoria.
-            </p>
+          <div className="mb-16">
+            <h2 className="text-3xl font-bold text-zinc-900 mb-2">Business Intelligence</h2>
+            <div className="h-1 w-12 bg-orange-500" />
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:grid-cols-3">
@@ -366,28 +269,17 @@ export default function Portfolio() {
               >
                 <ImageCarousel images={dash.images || []} />
                 
-                <h3 className="text-xl font-bold mb-3 text-zinc-950">{dash.title}</h3>
-                <p className="text-zinc-600 text-sm mb-6 leading-relaxed flex-grow">{dash.description}</p>
-                
+                <h3 className="text-xl font-bold mb-2 text-zinc-950">{dash.title}</h3>
+                <p className="text-zinc-600 text-sm mb-6 leading-relaxed line-clamp-2 flex-grow">{dash.description}</p>
                 <div className="flex flex-wrap gap-2 mb-4">
                   {dash.techs.map(tech => (
                     <span key={tech} className="px-2 py-1 text-[10px] font-bold uppercase text-orange-600 bg-orange-50 border border-orange-100 rounded">{tech}</span>
                   ))}
                 </div>
                 
-                {dash.link && dash.link !== 'https://app.powerbi.com/https://app.powerbi.com/view?r=eyJrIjoiZWViMmNmMmEtM2IzZi00NThjLTk1ZGEtMmM2ZjFiYWMwYjBmIiwidCI6IjE2ODIxZDUzLTQzNzMtNGFjMS1iMjZhLTIwOTVlMDY5NzYwNCJ9?r=seu_link_aqui' ? (
-                  <a href={dash.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-bold text-zinc-900 border-b-2 border-orange-200 hover:border-orange-500 transition-all mt-auto self-start">
-                    Explorar Dashboard <ExternalLink size={14} />
-                  </a>
-                ) : dash.link ? (
-                  <span className="inline-flex items-center gap-2 text-sm font-bold text-zinc-400 border-b-2 border-zinc-200 mt-auto self-start cursor-not-allowed">
-                    Link em atualização <Briefcase size={14} />
-                  </span>
-                ) : (
-                  <span className="inline-flex items-center gap-2 text-sm font-bold text-zinc-400 border-b-2 border-zinc-200 mt-auto self-start cursor-not-allowed">
-                    Em breve <Briefcase size={14} />
-                  </span>
-                )}
+                <a href={dash.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-bold text-zinc-900 border-b-2 border-orange-200 hover:border-orange-500 transition-all mt-auto self-start">
+                  Explorar Dashboard <ExternalLink size={14} />
+                </a>
               </motion.div>
             ))}
           </div>
@@ -395,7 +287,7 @@ export default function Portfolio() {
       </section>
 
       {/* =========================================
-          3. GITHUB SECTION - TÍTULO MAIS ATRATIVO
+          3. GITHUB SECTION 
           ========================================= */}
       <section id="codigo" className="relative w-full py-32 overflow-hidden">
         
@@ -408,63 +300,27 @@ export default function Portfolio() {
         />
 
         <div className="relative z-10 max-w-7xl mx-auto px-6">
-          <div className="mb-16 text-center md:text-left">
-            <span className="text-orange-500 font-bold text-sm uppercase tracking-widest mb-2 block">Open Source</span>
-            <h2 className="text-4xl md:text-5xl font-bold text-zinc-900 mb-4">Códigos em Python</h2>
-            <p className="text-zinc-600 max-w-2xl mx-auto md:mx-0">
-              Projetos de análise de dados, automação e ciência de dados disponíveis no GitHub.
-            </p>
+          <div className="mb-16">
+            <h2 className="text-3xl font-bold text-zinc-900 mb-2">Códigos em Python</h2>
+            <div className="h-1 w-12 bg-orange-500" />
           </div>
-          
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {githubProjects.length > 0 ? (
-              githubProjects.map((repo: any, index: number) => (
-                <motion.a 
-                  href={repo.html_url} target="_blank" rel="noreferrer" key={repo.id}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.3 + index * 0.1 }}
-                  className="flex items-center justify-between p-6 bg-white/60 border border-orange-100/50 rounded-xl hover:shadow-md hover:bg-white hover:border-orange-300 transition-all group backdrop-blur-md"
-                >
-                  <div className="flex-1">
-                    <h3 className="text-lg font-bold text-zinc-950 group-hover:text-orange-600">
-                      {repo.name.replace(/-/g, ' ').replace(/_/g, ' ')}
-                    </h3>
-                    <p className="text-sm text-zinc-600 mt-1 line-clamp-1">
-                      {repo.description || 'Projeto de análise e automação com Python'}
-                    </p>
-                    <div className="flex items-center gap-4 mt-3">
-                      <span className="text-xs font-medium text-orange-600 bg-orange-50 px-2 py-1 rounded-full">
-                        {repo.language || 'Python'}
-                      </span>
-                      <span className="text-xs text-zinc-500">
-                        ⭐ {repo.stargazers_count || 0}
-                      </span>
-                    </div>
-                  </div>
-                  <ArrowRight className="text-orange-200 group-hover:text-orange-500 group-hover:translate-x-1 transition-all ml-4" size={24} />
-                </motion.a>
-              ))
-            ) : (
-              <div className="col-span-2 text-center py-12">
-                <div className="animate-pulse flex flex-col items-center">
-                  <Github size={40} className="text-zinc-300 mb-4" />
-                  <p className="text-zinc-500">Carregando repositórios do GitHub...</p>
+            {githubProjects.length > 0 ? githubProjects.map((repo: any, index: number) => (
+              <motion.a 
+                href={repo.html_url} target="_blank" rel="noreferrer" key={repo.id}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 + index * 0.1 }}
+                className="flex items-center justify-between p-6 bg-white/60 border border-orange-100/50 rounded-xl hover:shadow-md hover:bg-white hover:border-orange-300 transition-all group backdrop-blur-md"
+              >
+                <div>
+                  <h3 className="text-lg font-bold text-zinc-950 group-hover:text-orange-600">{repo.name}</h3>
+                  <p className="text-sm text-orange-600 mt-1 font-medium">{repo.language || 'Python'}</p>
                 </div>
-              </div>
-            )}
-          </div>
-          
-          <div className="text-center mt-12">
-            <a 
-              href="https://github.com/Frsfd12" 
-              target="_blank" 
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-zinc-900 text-white font-bold rounded-lg hover:bg-orange-600 transition-all hover:scale-105"
-            >
-              Ver todos no GitHub <Github size={18} />
-            </a>
+                <ArrowRight className="text-orange-200 group-hover:text-orange-500 group-hover:translate-x-1 transition-all" size={24} />
+              </motion.a>
+            )) : <p className="text-zinc-500 italic">Consultando repositórios...</p>}
           </div>
         </div>
       </section>
@@ -483,9 +339,8 @@ export default function Portfolio() {
         />
 
         <div className="relative z-10 max-w-7xl mx-auto px-6">
-          <div className="mb-16 text-center md:text-left">
-            <span className="text-orange-500 font-bold text-sm uppercase tracking-widest mb-2 block">Depoimentos</span>
-            <h2 className="text-4xl md:text-5xl font-bold text-zinc-900 mb-4">Recomendações</h2>
+          <div className="mb-16 flex flex-col items-center md:items-start">
+            <h2 className="text-3xl font-bold text-zinc-900 mb-2 italic">Recomendações</h2>
             <div className="h-1 w-12 bg-orange-400" />
           </div>
 
@@ -500,10 +355,6 @@ export default function Portfolio() {
                 className="relative p-8 bg-white/95 border border-orange-200 rounded-2xl shadow-md hover:shadow-2xl transition-all"
               >
                 <div className="absolute top-6 right-8 text-orange-100 text-6xl font-serif">“</div>
-                <div className="flex items-center gap-2 mb-4">
-                  <Award size={20} className="text-orange-500" />
-                  <span className="text-sm font-bold text-orange-600 uppercase tracking-wider">Recomendação</span>
-                </div>
                 <p className="text-zinc-800 text-lg mb-8 relative z-10 leading-relaxed font-medium">"{item.text}"</p>
                 <div className="flex items-center gap-4 border-t border-zinc-100 pt-6">
                   <div className="relative w-14 h-14 rounded-full overflow-hidden border-2 border-orange-100 shadow-inner">
@@ -521,18 +372,16 @@ export default function Portfolio() {
       </section>
 
       {/* =========================================
-          5. CONTACT - COM FEEDBACK DE ENVIO
+          5. CONTACT & FOR
           ========================================= */}
       <section id="contato" className="py-32 px-6 max-w-7xl mx-auto border-t border-zinc-300/30 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           
           <div className="text-center lg:text-left">
-            <span className="text-orange-500 font-bold text-sm uppercase tracking-widest mb-2 block">Contato</span>
             <h2 className="text-4xl md:text-5xl font-bold text-zinc-900 mb-6 leading-tight">Vamos criar <br /> algo juntos?</h2>
             <p className="text-lg text-zinc-700 mb-10 max-w-md mx-auto lg:mx-0 leading-relaxed font-normal">
               Tem um projeto de dados em mente, busca consultoria em BI ou precisa de automações avançadas em Python? Me mande uma mensagem.
             </p>
-            
             <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4">
               <a href="https://www.linkedin.com/in/marcos-estevam/" target="_blank" rel="noreferrer" className="flex items-center justify-center gap-3 px-8 py-4 bg-white/60 border border-orange-200 text-orange-600 font-bold rounded-lg hover:bg-white hover:border-orange-400 transition-all shadow-sm backdrop-blur-sm group hover:-translate-y-1">
                 <Linkedin size={20} className="group-hover:rotate-6 transition-transform" /> Conectar no LinkedIn
@@ -542,58 +391,26 @@ export default function Portfolio() {
 
           <div className="bg-white/90 p-8 md:p-10 rounded-3xl border border-orange-100 shadow-xl shadow-orange-950/5 backdrop-blur-md">
             
-            <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+            {}
+            <form action="https://formspree.io/f/xojkygvj" method="POST" className="flex flex-col gap-6">
               
               <div>
                 <label htmlFor="name" className="block text-sm font-bold text-zinc-800 mb-2">Nome Completo</label>
-                <input 
-                  type="text" 
-                  id="name" 
-                  name="name" 
-                  required 
-                  placeholder="Ex: João Silva" 
-                  className="w-full px-5 py-4 rounded-xl bg-white border border-orange-100 focus:border-orange-400 focus:ring-4 focus:ring-orange-100 outline-none transition-all text-zinc-900 placeholder:text-zinc-400" 
-                />
+                <input type="text" id="name" name="name" required placeholder="Ex: João Silva" className="w-full px-5 py-4 rounded-xl bg-white border border-orange-100 focus:border-orange-400 focus:ring-4 focus:ring-orange-100 outline-none transition-all text-zinc-900 placeholder:text-zinc-400" />
               </div>
               
               <div>
                 <label htmlFor="email" className="block text-sm font-bold text-zinc-800 mb-2">E-mail Profissional</label>
-                <input 
-                  type="email" 
-                  id="email" 
-                  name="email" 
-                  required 
-                  placeholder="seu@empresa.com" 
-                  className="w-full px-5 py-4 rounded-xl bg-white border border-orange-100 focus:border-orange-400 focus:ring-4 focus:ring-orange-100 outline-none transition-all text-zinc-900 placeholder:text-zinc-400" 
-                />
+                <input type="email" id="email" name="email" required placeholder="seu@empresa.com" className="w-full px-5 py-4 rounded-xl bg-white border border-orange-100 focus:border-orange-400 focus:ring-4 focus:ring-orange-100 outline-none transition-all text-zinc-900 placeholder:text-zinc-400" />
               </div>
               
               <div>
                 <label htmlFor="message" className="block text-sm font-bold text-zinc-800 mb-2">Detalhes do Projeto</label>
-                <textarea 
-                  id="message" 
-                  name="message" 
-                  required 
-                  rows={4} 
-                  placeholder="Como posso ajudar a transformar seus dados em inteligência?" 
-                  className="w-full px-5 py-4 rounded-xl bg-white border border-orange-100 focus:border-orange-400 focus:ring-4 focus:ring-orange-100 outline-none transition-all text-zinc-900 resize-none placeholder:text-zinc-400"
-                ></textarea>
+                <textarea id="message" name="message" required rows={4} placeholder="Como posso ajudar a transformar seus dados em inteligência?" className="w-full px-5 py-4 rounded-xl bg-white border border-orange-100 focus:border-orange-400 focus:ring-4 focus:ring-orange-100 outline-none transition-all text-zinc-900 resize-none placeholder:text-zinc-400"></textarea>
               </div>
               
-              <button 
-                type="submit" 
-                disabled={formStatus === 'sending'}
-                className={`w-full py-4 mt-2 bg-orange-500 text-white font-bold rounded-xl transition-all shadow-lg shadow-orange-500/30 flex items-center justify-center gap-2 group hover:-translate-y-1 ${formStatus === 'sending' ? 'opacity-70 cursor-not-allowed' : 'hover:bg-orange-600'}`}
-              >
-                {formStatus === 'sending' ? (
-                  <>Enviando...</>
-                ) : formStatus === 'success' ? (
-                  <>Mensagem Enviada! <Send size={18} /></>
-                ) : formStatus === 'error' ? (
-                  <>Erro ao enviar. Tente novamente.</>
-                ) : (
-                  <>Enviar Solicitação <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" /></>
-                )}
+              <button type="submit" className="w-full py-4 mt-2 bg-orange-500 text-white font-bold rounded-xl hover:bg-orange-600 transition-all shadow-lg shadow-orange-500/30 flex items-center justify-center gap-2 group hover:-translate-y-1">
+                Enviar Solicitação <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
               </button>
 
             </form>
@@ -601,8 +418,28 @@ export default function Portfolio() {
 
         </div>
       </section>
-    </div>        
-        {/* =========================================
+
+      {/* =========================================
           RODAPÉ
           ========================================= */}
-      <footer className="py-12 flex flex-col items-center justify-center gap-6 border-t border-zinc-300
+      <footer className="py-12 flex flex-col items-center justify-center gap-6 border-t border-zinc-300/30 relative z-10 bg-white/20 backdrop-blur-sm">
+        
+        <a 
+          href="https://wa.me/5521971083014"
+          target="_blank" 
+          rel="noopener noreferrer" 
+          className="flex items-center gap-2.5 text-base font-bold text-white transition-all bg-[#25D366] px-8 py-3.5 rounded-full shadow-lg shadow-[#25D366]/30 hover:bg-[#20b859] hover:scale-105 active:scale-95 group"
+        >
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" className="group-hover:rotate-6 transition-transform">
+            <path d="M12.004 2C6.48 2 2 6.48 2 12c0 1.74.45 3.39 1.25 4.83L2 22l5.31-1.39A9.97 9.97 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12.004 2zm3.1 14.6c-.22.61-1.09 1.11-1.63 1.22-.52.1-1.07.13-1.61.13-1.07 0-2.19-.38-3.14-1.07-1.78-1.28-2.9-3.21-2.9-5.41 0-1.12.31-2.18.88-3.09a4.8 4.8 0 0 1 1.79-1.64c.2-.09.39-.14.61-.14.28 0 .56.09.78.27.18.15.34.34.46.56l.7 1.28c.11.21.16.43.16.65 0 .22-.05.43-.16.63l-.44.78c-.06.11-.08.23-.08.36 0 .16.03.32.1.48.2.45.54.89.96 1.26a3.9 3.9 0 0 0 1.48.88c.17.06.34.09.51.09.13 0 .27-.01.4-.04.16-.04.3-.12.42-.23l.71-.65c.2-.18.47-.27.75-.27s.55.09.76.27l1.37.89c.19.12.33.31.41.53z"/>
+          </svg>
+          Chamar no WhatsApp
+        </a>
+        
+        <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-500 text-center px-6">
+          Marcos Estevam • {new Date().getFullYear()} • Belo Horizonte / MG • Inteligência de Dados
+        </p>
+      </footer>
+    </div>
+  );
+}
