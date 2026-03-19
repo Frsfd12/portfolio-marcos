@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata = {
   title: 'Marcos Estevam | Especialista em Dados',
-  description: 'Portfólio de Inteligência de Dados, Business Intelligence e Python.',
+  description: 'Business Intelligence e Python.',
 };
 
 export default function RootLayout({
