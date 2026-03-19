@@ -301,7 +301,7 @@ useEffect(() => {
 
         <div className="relative z-10 max-w-7xl mx-auto px-6">
           <div className="mb-16">
-            <h2 className="text-3xl font-bold text-zinc-900 mb-2">Engenharia Python</h2>
+            <h2 className="text-3xl font-bold text-zinc-900 mb-2">Códigos em Python</h2>
             <div className="h-1 w-12 bg-orange-500" />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
