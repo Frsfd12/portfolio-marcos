@@ -96,7 +96,7 @@ const testimonials = [
     name: "Lucas Hirata",
     role: "Assessor de Gestão Estratégica e Qualidade - IPSEMG", 
     text: "Recomendo fortemente o Marcos pela sua excelente performance. Ele se destaca pela proatividade e pelo domínio técnico avançado em Excel, Python, Power BI e bancos de dados. Sua atuação foi fundamental em projetos estratégicos de alta complexidade... entregando análises que subsidiaram diretamente a tomada de decisão da nossa diretoria.",
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=300&auto=format&fit=crop" 
+    avatar: "\recomendacao-1.jpg" 
   }
 ];
 
