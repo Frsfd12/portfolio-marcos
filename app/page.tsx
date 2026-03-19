@@ -85,7 +85,7 @@ const dashboards = [
     description: 'Acompanhamento de projetos estratégicos do IPSEMG por meio de dashboards dinâmicos, integrando dados de múltiplas fontes para fornecer uma visão consolidada do progresso, prazos e recursos humanos alocados, facilitando a gestão e a tomada de decisões pela diretoria.',
     techs: ['Power BI', 'DAX', 'ETL'],
     images: ['/acomp_proj_1.png', '/acomp_proj_2.png', '/acomp_proj_3.png'], 
-    link: 'https://app.powerbi.com/view?r=eyJrIjoiZWViMmNmMmEtM2IzZi00NThjLTk1ZGEtMmM2ZjFiYWMwYjBmIiwidCI6IjE2ODIxZDUzLTQzNzMtNGFjMS1iMjZhLTIwOTVlMDY5NzYwNCJ9', // Corrigido o link duplo
+    link: 'https://app.powerbi.com/view?r=eyJrIjoiZWViMmNmMmEtM2IzZi00NThjLTk1ZGEtMmM2ZjFiYWMwYjBmIiwidCI6IjE2ODIxZDUzLTQzNzMtNGFjMS1iMjZhLTIwOTVlMDY5NzYwNCJ9',
   }
 ];
 
@@ -104,18 +104,20 @@ const testimonials = [
 const skills = [
   { name: 'Python', icon: <Code size={20} />, level: 90 },
   { name: 'Power BI', icon: <BarChart3 size={20} />, level: 95 },
-  { name: 'SQL', icon: <Database size={20} />, level: 90 },
-  { name: 'Machine Learning', icon: <Brain size={20} />, level: 75 },
-  { name: 'Estatística', icon: <TrendingUp size={20} />, level: 85 },
+  { name: 'SQL', icon: <Database size={20} />, level: 85 },
+  { name: 'Machine Learning', icon: <Brain size={20} />, level: 70 },
+  { name: 'Estatística', icon: <TrendingUp size={20} />, level: 80 },
   { name: 'DAX', icon: <Zap size={20} />, level: 90 },
 ];
 
 export default function Portfolio() {
-  const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
   const [githubProjects, setGithubProjects] = useState<any[]>([]);
   const [isDissolving, setIsDissolving] = useState(false);
   const [formStatus, setFormStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+
+  // Controle da barra de scroll
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
 
   useEffect(() => {
     fetch('https://api.github.com/users/Frsfd12/repos?sort=updated&per_page=6')
@@ -170,15 +172,40 @@ export default function Portfolio() {
     }
   };
 
+  // Dados da Jornada (Timeline)
+  const journeySteps = [
+    {
+      title: 'A Fundação UFMG',
+      role: 'Administração & Pesquisa Operacional',
+      text: 'Onde minha visão estratégica de negócios nasceu. Descobri minha vocação ao explorar a Pesquisa Operacional e aplicar Python no projeto Milhagem UFMG para desafios reais de análise de dados.',
+      icon: <Award size={24} className="text-orange-500" />,
+      delay: 0.1,
+    },
+    {
+      title: 'Dominando o Stack Técnico',
+      role: 'Engenharia de Dados & BI',
+      text: 'Tradução do conhecimento estratégico em soluções técnicas pesadas. Domínio prático de Python, SQL e Power BI para extrair, transformar e visualizar dados complexos de forma automatizada.',
+      icon: <Zap size={24} className="text-orange-500" />,
+      delay: 0.3,
+    },
+    {
+      title: 'Impacto Real (IPSEMG)',
+      role: 'Especialista em Dados',
+      text: 'Responsável por extrair dados em SQL, automatizar rotinas com Python e Power Automate, e construir dashboards executivos que impactam diretamente a tomada de decisão da diretoria.',
+      icon: <Users size={24} className="text-orange-500" />,
+      delay: 0.5,
+    },
+  ];
+
   return (
     <div className="min-h-screen bg-[#e6e8e3] text-zinc-900 selection:bg-orange-100 font-sans overflow-x-hidden">
-
-      {/* BARRA DE PROGRESSO DE SCROLL NO TOPO */}
+      
+      {/* BARRA DE PROGRESSO DE SCROLL */}
       <motion.div
         className="fixed top-0 left-0 right-0 h-1.5 bg-orange-500 z-50 origin-left shadow-md shadow-orange-500/50"
         style={{ scaleX }}
       />
-      
+
       {/* 1. HERO SECTION */}
       <section className="relative flex flex-col items-center justify-center min-h-screen px-6 py-20 overflow-hidden">
         
@@ -230,7 +257,7 @@ export default function Portfolio() {
                 }}
               >
                 <Image
-                  src="/fotoperfil.png" // Ajuste para .jpg ou .png dependendo de como você salvou
+                  src="/perfil.png" 
                   alt="Marcos Estevam - Especialista em Dados"
                   fill
                   className="object-cover grayscale-[30%] group-hover:grayscale-0 transition-all duration-700"
@@ -265,7 +292,7 @@ export default function Portfolio() {
           >
               <div className="inline-flex items-center gap-2 px-4 py-1.5 mb-8 text-sm font-bold uppercase tracking-widest border rounded-full text-orange-700 border-orange-200 bg-orange-50/80 justify-center md:justify-start">
                 <Sparkles size={16} className="text-orange-500" />
-                Analista de Dados
+                Especialista em Dados
               </div>
               
               <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-4 text-zinc-950 leading-[1.1]">
@@ -311,11 +338,58 @@ export default function Portfolio() {
         </div>
       </section>
 
-      {/* SEÇÃO DE HABILIDADES - NOVA */}
-      <section className="relative w-full py-16 bg-[#dce0d9]/30">
+      {/* 2. SEÇÃO SOBRE MIM (TIMELINE) */}
+      <section id="sobre" className="relative w-full py-24 overflow-hidden bg-white/40 backdrop-blur-sm border-y border-zinc-200/50">
+        <div className="relative z-10 max-w-7xl mx-auto px-6">
+          <div className="mb-20 text-center md:text-left">
+            <span className="text-orange-500 font-bold text-sm uppercase tracking-widest mb-2 block">Trajetória</span>
+            <h2 className="text-4xl md:text-5xl font-bold text-zinc-900 mb-4">Unindo Negócios e Dados</h2>
+            <div className="h-1 w-12 bg-orange-500 mx-auto md:mx-0" />
+          </div>
+
+          <div className="relative max-w-4xl mx-auto">
+            {/* Linha Central Vertical */}
+            <div className="absolute left-8 md:left-1/2 transform md:-translate-x-1/2 h-full w-0.5 bg-orange-200/50 rounded-full" />
+
+            {journeySteps.map((step, index) => {
+              const isEven = index % 2 === 0;
+              return (
+                <motion.div 
+                  key={step.title}
+                  initial={{ opacity: 0, y: 50, scale: 0.95 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.6, delay: step.delay, type: "spring", bounce: 0.3 }}
+                  className={`relative flex flex-col md:flex-row items-start md:items-center mb-16 last:mb-0 ${isEven ? 'md:flex-row-reverse' : ''}`}
+                >
+                  {/* Espaçador Desktop */}
+                  <div className="flex-1 hidden md:block" />
+
+                  {/* Ícone Central */}
+                  <div className="absolute left-0 md:relative md:left-auto z-10 w-16 h-16 rounded-full bg-white border-4 border-[#e6e8e3] shadow-md flex items-center justify-center shrink-0 md:mx-8">
+                    {step.icon}
+                  </div>
+
+                  {/* Card de Conteúdo */}
+                  <div className="flex-1 w-full pl-24 md:pl-0">
+                    <div className="bg-white/80 p-8 rounded-3xl border border-orange-100/50 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-orange-200 transition-all backdrop-blur-sm">
+                      <span className="text-xs font-bold text-orange-500 uppercase tracking-wider mb-2 block">{step.role}</span>
+                      <h3 className="text-2xl font-bold mb-3 text-zinc-950">{step.title}</h3>
+                      <p className="text-zinc-600 text-base leading-relaxed">{step.text}</p>
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* 3. EXPERTISE TÉCNICA */}
+      <section className="relative w-full py-24 bg-[#dce0d9]/30">
         <div className="max-w-7xl mx-auto px-6">
-          <h2 className="text-2xl font-bold text-center mb-12 text-zinc-800">Expertise Técnica</h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+          <h2 className="text-2xl font-bold text-center mb-16 text-zinc-800">Expertise Técnica</h2>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
             {skills.map((skill) => (
               <motion.div
                 key={skill.name}
@@ -323,14 +397,20 @@ export default function Portfolio() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
-                className="text-center"
+                className="text-center group"
               >
-                <div className="w-16 h-16 mx-auto mb-3 rounded-full bg-white border-2 border-orange-100 flex items-center justify-center text-orange-600">
+                <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-white border border-orange-100 shadow-sm flex items-center justify-center text-zinc-500 group-hover:text-orange-600 group-hover:border-orange-300 group-hover:scale-110 transition-all">
                   {skill.icon}
                 </div>
-                <h3 className="font-bold text-sm">{skill.name}</h3>
-                <div className="w-full bg-zinc-200 h-1 rounded-full mt-2">
-                  <div className="bg-orange-500 h-1 rounded-full" style={{ width: `${skill.level}%` }}></div>
+                <h3 className="font-bold text-sm text-zinc-900">{skill.name}</h3>
+                <div className="w-full bg-zinc-200 h-1.5 rounded-full mt-3 overflow-hidden">
+                  <motion.div 
+                    initial={{ width: 0 }}
+                    whileInView={{ width: `${skill.level}%` }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
+                    className="bg-orange-500 h-full rounded-full relative"
+                  />
                 </div>
               </motion.div>
             ))}
@@ -338,9 +418,7 @@ export default function Portfolio() {
         </div>
       </section>
 
-      {/* =========================================
-          2. DASHBOARDS SECTION - TÍTULO MELHORADO
-          ========================================= */}
+      {/* 4. DASHBOARDS SECTION */}
       <section id="dashboards" className="relative w-full py-32 overflow-hidden">
         
         <motion.div
@@ -364,34 +442,34 @@ export default function Portfolio() {
             {dashboards.map((dash, index) => (
               <motion.div 
                 key={dash.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.3 + index * 0.1 }} 
-                className="group bg-white/80 border border-orange-100 rounded-xl p-5 shadow-sm hover:shadow-xl hover:border-orange-300 transition-all hover:-translate-y-1 backdrop-blur-sm flex flex-col"
+                initial={{ opacity: 0, y: 50, scale: 0.9 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.6, delay: index * 0.15, type: "spring", bounce: 0.3 }} 
+                className="group bg-white/80 border border-orange-100 rounded-2xl p-6 shadow-sm hover:shadow-2xl hover:border-orange-300 transition-all hover:-translate-y-2 backdrop-blur-sm flex flex-col"
               >
                 <ImageCarousel images={dash.images || []} />
                 
-                <h3 className="text-xl font-bold mb-3 text-zinc-950">{dash.title}</h3>
+                <h3 className="text-xl font-bold mb-3 text-zinc-950 group-hover:text-orange-600 transition-colors">{dash.title}</h3>
                 <p className="text-zinc-600 text-sm mb-6 leading-relaxed flex-grow">{dash.description}</p>
                 
-                <div className="flex flex-wrap gap-2 mb-4">
+                <div className="flex flex-wrap gap-2 mb-6">
                   {dash.techs.map(tech => (
-                    <span key={tech} className="px-2 py-1 text-[10px] font-bold uppercase text-orange-600 bg-orange-50 border border-orange-100 rounded">{tech}</span>
+                    <span key={tech} className="px-2.5 py-1 text-[10px] font-bold uppercase text-orange-700 bg-orange-50 border border-orange-100 rounded-md">{tech}</span>
                   ))}
                 </div>
                 
                 {dash.link && dash.link !== 'https://app.powerbi.com/view?r=eyJrIjoiZWViMmNmMmEtM2IzZi00NThjLTk1ZGEtMmM2ZjFiYWMwYjBmIiwidCI6IjE2ODIxZDUzLTQzNzMtNGFjMS1iMjZhLTIwOTVlMDY5NzYwNCJ9' ? (
-                  <a href={dash.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-bold text-zinc-900 border-b-2 border-orange-200 hover:border-orange-500 transition-all mt-auto self-start">
-                    Explorar Dashboard <ExternalLink size={14} />
+                  <a href={dash.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-bold text-zinc-900 border-b-2 border-orange-200 hover:border-orange-500 hover:text-orange-600 transition-all mt-auto self-start pb-1">
+                    Explorar Dashboard <ExternalLink size={16} />
                   </a>
                 ) : dash.link ? (
-                  <a href={dash.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-bold text-zinc-900 border-b-2 border-orange-200 hover:border-orange-500 transition-all mt-auto self-start">
-                    Explorar Dashboard <ExternalLink size={14} />
+                  <a href={dash.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-bold text-zinc-900 border-b-2 border-orange-200 hover:border-orange-500 hover:text-orange-600 transition-all mt-auto self-start pb-1">
+                    Explorar Dashboard <ExternalLink size={16} />
                   </a>
                 ) : (
-                  <span className="inline-flex items-center gap-2 text-sm font-bold text-zinc-400 border-b-2 border-zinc-200 mt-auto self-start cursor-not-allowed">
-                    Em breve <Briefcase size={14} />
+                  <span className="inline-flex items-center gap-2 text-sm font-bold text-zinc-400 border-b-2 border-zinc-200 mt-auto self-start cursor-not-allowed pb-1">
+                    Em breve <Briefcase size={16} />
                   </span>
                 )}
               </motion.div>
@@ -400,9 +478,7 @@ export default function Portfolio() {
         </div>
       </section>
 
-      {/* =========================================
-          3. GITHUB SECTION - TÍTULO MAIS ATRATIVO
-          ========================================= */}
+      {/* 5. GITHUB SECTION */}
       <section id="codigo" className="relative w-full py-32 overflow-hidden">
         
         <motion.div
@@ -427,29 +503,31 @@ export default function Portfolio() {
               githubProjects.map((repo: any, index: number) => (
                 <motion.a 
                   href={repo.html_url} target="_blank" rel="noreferrer" key={repo.id}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.3 + index * 0.1 }}
-                  className="flex items-center justify-between p-6 bg-white/60 border border-orange-100/50 rounded-xl hover:shadow-md hover:bg-white hover:border-orange-300 transition-all group backdrop-blur-md"
+                  initial={{ opacity: 0, y: 30, scale: 0.95 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.5, delay: index * 0.1, type: "spring", bounce: 0.4 }}
+                  className="flex items-center justify-between p-6 bg-white/60 border border-orange-100/50 rounded-2xl hover:shadow-lg hover:bg-white hover:border-orange-300 transition-all group backdrop-blur-md hover:-translate-y-1"
                 >
                   <div className="flex-1">
-                    <h3 className="text-lg font-bold text-zinc-950 group-hover:text-orange-600">
+                    <h3 className="text-lg font-bold text-zinc-950 group-hover:text-orange-600 transition-colors">
                       {repo.name.replace(/-/g, ' ').replace(/_/g, ' ')}
                     </h3>
-                    <p className="text-sm text-zinc-600 mt-1 line-clamp-1">
+                    <p className="text-sm text-zinc-600 mt-2 line-clamp-1">
                       {repo.description || 'Projeto de análise e automação com Python'}
                     </p>
-                    <div className="flex items-center gap-4 mt-3">
-                      <span className="text-xs font-medium text-orange-600 bg-orange-50 px-2 py-1 rounded-full">
+                    <div className="flex items-center gap-4 mt-4">
+                      <span className="text-xs font-bold text-orange-700 bg-orange-50/80 border border-orange-100 px-2.5 py-1 rounded-md uppercase">
                         {repo.language || 'Python'}
                       </span>
-                      <span className="text-xs text-zinc-500">
+                      <span className="text-xs font-medium text-zinc-500 flex items-center gap-1">
                         ⭐ {repo.stargazers_count || 0}
                       </span>
                     </div>
                   </div>
-                  <ArrowRight className="text-orange-200 group-hover:text-orange-500 group-hover:translate-x-1 transition-all ml-4" size={24} />
+                  <div className="w-12 h-12 rounded-full bg-orange-50 flex items-center justify-center ml-4 group-hover:bg-orange-500 transition-colors">
+                    <ArrowRight className="text-orange-300 group-hover:text-white transition-colors" size={20} />
+                  </div>
                 </motion.a>
               ))
             ) : (
@@ -462,22 +540,20 @@ export default function Portfolio() {
             )}
           </div>
           
-          <div className="text-center mt-12">
+          <div className="text-center mt-16">
             <a 
               href="https://github.com/Frsfd12" 
               target="_blank" 
               rel="noreferrer"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-zinc-900 text-white font-bold rounded-lg hover:bg-orange-600 transition-all hover:scale-105"
+              className="inline-flex items-center gap-3 px-8 py-4 bg-zinc-900 text-white font-bold rounded-xl hover:bg-orange-600 transition-all shadow-lg hover:shadow-orange-500/30 hover:-translate-y-1"
             >
-              Ver todos no GitHub <Github size={18} />
+              Ver todos no GitHub <Github size={20} />
             </a>
           </div>
         </div>
       </section>
 
-      {/* =========================================
-          4. TESTIMONIALS SECTION
-          ========================================= */}
+      {/* 6. TESTIMONIALS SECTION */}
       <section id="recomendacoes" className="relative w-full py-32 overflow-hidden">
         
         <motion.div
@@ -492,32 +568,32 @@ export default function Portfolio() {
           <div className="mb-16 text-center md:text-left">
             <span className="text-orange-500 font-bold text-sm uppercase tracking-widest mb-2 block">Depoimentos</span>
             <h2 className="text-4xl md:text-5xl font-bold text-zinc-900 mb-4">Recomendações</h2>
-            <div className="h-1 w-12 bg-orange-400" />
+            <div className="h-1 w-12 bg-orange-500 mx-auto md:mx-0" />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-1 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-1 gap-8 max-w-4xl">
             {testimonials.map((item, index) => (
               <motion.div 
                 key={item.id}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.3 }}
-                className="relative p-8 bg-white/95 border border-orange-200 rounded-2xl shadow-md hover:shadow-2xl transition-all"
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.7 }}
+                className="relative p-8 md:p-10 bg-white border border-orange-100/80 rounded-3xl shadow-lg shadow-orange-950/5 hover:shadow-xl transition-all"
               >
-                <div className="absolute top-6 right-8 text-orange-100 text-6xl font-serif">“</div>
-                <div className="flex items-center gap-2 mb-4">
+                <div className="absolute top-8 right-10 text-orange-100 text-8xl font-serif leading-none">“</div>
+                <div className="flex items-center gap-2 mb-6">
                   <Award size={20} className="text-orange-500" />
-                  <span className="text-sm font-bold text-orange-600 uppercase tracking-wider">Recomendação</span>
+                  <span className="text-sm font-bold text-orange-600 uppercase tracking-wider">Recomendação Profissional</span>
                 </div>
-                <p className="text-zinc-800 text-lg mb-8 relative z-10 leading-relaxed font-medium">"{item.text}"</p>
-                <div className="flex items-center gap-4 border-t border-zinc-100 pt-6">
-                  <div className="relative w-14 h-14 rounded-full overflow-hidden border-2 border-orange-100 shadow-inner">
+                <p className="text-zinc-700 text-lg md:text-xl mb-10 relative z-10 leading-relaxed italic">"{item.text}"</p>
+                <div className="flex items-center gap-5 border-t border-zinc-100 pt-8">
+                  <div className="relative w-16 h-16 rounded-full overflow-hidden border-2 border-orange-100 shadow-inner shrink-0">
                     <Image src={item.avatar} alt={item.name} fill className="object-cover" />
                   </div>
                   <div>
-                    <h4 className="font-bold text-zinc-950 text-base">{item.name}</h4>
-                    <p className="text-xs text-orange-700 font-medium uppercase tracking-wider mt-1">{item.role}</p>
+                    <h4 className="font-bold text-zinc-950 text-lg">{item.name}</h4>
+                    <p className="text-xs text-zinc-500 font-semibold uppercase tracking-wider mt-1">{item.role}</p>
                   </div>
                 </div>
               </motion.div>
@@ -526,27 +602,25 @@ export default function Portfolio() {
         </div>
       </section>
 
-      {/* =========================================
-          5. CONTACT - COM FEEDBACK DE ENVIO
-          ========================================= */}
+      {/* 7. CONTACT */}
       <section id="contato" className="py-32 px-6 max-w-7xl mx-auto border-t border-zinc-300/30 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           
           <div className="text-center lg:text-left">
             <span className="text-orange-500 font-bold text-sm uppercase tracking-widest mb-2 block">Contato</span>
             <h2 className="text-4xl md:text-5xl font-bold text-zinc-900 mb-6 leading-tight">Vamos criar <br /> algo juntos?</h2>
-            <p className="text-lg text-zinc-700 mb-10 max-w-md mx-auto lg:mx-0 leading-relaxed font-normal">
-              Tem um projeto de dados em mente, busca consultoria em BI ou precisa de automações em Python? Me mande uma mensagem.
+            <p className="text-lg text-zinc-600 mb-10 max-w-md mx-auto lg:mx-0 leading-relaxed font-normal">
+              Tem um projeto de dados em mente, busca consultoria em BI ou precisa de automações avançadas em Python? Me mande uma mensagem.
             </p>
             
             <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4">
-              <a href="https://www.linkedin.com/in/marcos-estevam/" target="_blank" rel="noreferrer" className="flex items-center justify-center gap-3 px-8 py-4 bg-white/60 border border-orange-200 text-orange-600 font-bold rounded-lg hover:bg-white hover:border-orange-400 transition-all shadow-sm backdrop-blur-sm group hover:-translate-y-1">
+              <a href="https://www.linkedin.com/in/marcos-estevam/" target="_blank" rel="noreferrer" className="flex items-center justify-center gap-3 px-8 py-4 bg-white/60 border border-orange-200 text-orange-600 font-bold rounded-xl hover:bg-white hover:border-orange-400 transition-all shadow-sm backdrop-blur-sm group hover:-translate-y-1">
                 <Linkedin size={20} className="group-hover:rotate-6 transition-transform" /> Conectar no LinkedIn
               </a>
             </div>
           </div>
 
-          <div className="bg-white/90 p-8 md:p-10 rounded-3xl border border-orange-100 shadow-xl shadow-orange-950/5 backdrop-blur-md">
+          <div className="bg-white p-8 md:p-10 rounded-3xl border border-orange-100 shadow-2xl shadow-orange-950/5">
             
             <form onSubmit={handleSubmit} className="flex flex-col gap-6">
               
@@ -558,7 +632,7 @@ export default function Portfolio() {
                   name="name" 
                   required 
                   placeholder="Ex: João Silva" 
-                  className="w-full px-5 py-4 rounded-xl bg-white border border-orange-100 focus:border-orange-400 focus:ring-4 focus:ring-orange-100 outline-none transition-all text-zinc-900 placeholder:text-zinc-400" 
+                  className="w-full px-5 py-4 rounded-xl bg-[#f6f7f4] border border-transparent focus:border-orange-400 focus:bg-white focus:ring-4 focus:ring-orange-100 outline-none transition-all text-zinc-900 placeholder:text-zinc-400" 
                 />
               </div>
               
@@ -570,7 +644,7 @@ export default function Portfolio() {
                   name="email" 
                   required 
                   placeholder="seu@empresa.com" 
-                  className="w-full px-5 py-4 rounded-xl bg-white border border-orange-100 focus:border-orange-400 focus:ring-4 focus:ring-orange-100 outline-none transition-all text-zinc-900 placeholder:text-zinc-400" 
+                  className="w-full px-5 py-4 rounded-xl bg-[#f6f7f4] border border-transparent focus:border-orange-400 focus:bg-white focus:ring-4 focus:ring-orange-100 outline-none transition-all text-zinc-900 placeholder:text-zinc-400" 
                 />
               </div>
               
@@ -582,7 +656,7 @@ export default function Portfolio() {
                   required 
                   rows={4} 
                   placeholder="Como posso ajudar a transformar seus dados em inteligência?" 
-                  className="w-full px-5 py-4 rounded-xl bg-white border border-orange-100 focus:border-orange-400 focus:ring-4 focus:ring-orange-100 outline-none transition-all text-zinc-900 resize-none placeholder:text-zinc-400"
+                  className="w-full px-5 py-4 rounded-xl bg-[#f6f7f4] border border-transparent focus:border-orange-400 focus:bg-white focus:ring-4 focus:ring-orange-100 outline-none transition-all text-zinc-900 resize-none placeholder:text-zinc-400"
                 ></textarea>
               </div>
               
@@ -598,7 +672,7 @@ export default function Portfolio() {
                 ) : formStatus === 'error' ? (
                   <>Erro ao enviar. Tente novamente.</>
                 ) : (
-                  <>Enviar Solicitação <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" /></>
+                  <>Enviar Mensagem <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" /></>
                 )}
               </button>
 
@@ -608,13 +682,11 @@ export default function Portfolio() {
         </div>
       </section>
 
-      {/* =========================================
-          RODAPÉ (COM ÍCONE DO WHATSAPP)
-          ========================================= */}
-      <footer className="py-12 flex flex-col items-center justify-center gap-6 border-t border-zinc-300/30 relative z-10 bg-white/20 backdrop-blur-sm">
+      {/* 8. RODAPÉ */}
+      <footer className="py-12 flex flex-col items-center justify-center gap-6 border-t border-zinc-300/30 relative z-10 bg-[#e6e8e3]">
         
         <a 
-          href="https://wa.me/5521971083014" // <-- NÃO ESQUEÇA DE ATUALIZAR SEU NÚMERO AQUI
+          href="https://wa.me/5521971083014"
           target="_blank" 
           rel="noopener noreferrer" 
           className="flex items-center gap-2.5 text-base font-bold text-white transition-all bg-[#25D366] px-8 py-3.5 rounded-full shadow-lg shadow-[#25D366]/30 hover:bg-[#20b859] hover:scale-105 active:scale-95 group"
@@ -626,7 +698,7 @@ export default function Portfolio() {
         </a>
         
         <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-500 text-center px-6">
-          Marcos Estevam • {new Date().getFullYear()} • Belo Horizonte / MG • Inteligência de Dados
+          Marcos Estevam • {new Date().getFullYear()} • Inteligência de Dados
         </p>
       </footer>
     </div>
