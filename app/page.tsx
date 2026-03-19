@@ -165,7 +165,7 @@ useEffect(() => {
         
         <div className="z-20 max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-16 px-6 w-full mt-20 md:mt-0">
           
-          <div className="flex-1 flex justify-center md:justify-end order-1 relative w-[320px] h-[320px] md:w-[480px] md:h-[480px]">
+          <div className="shrink-0 flex justify-center md:justify-end order-1 relative w-[280px] h-[280px] sm:w-[320px] sm:h-[320px] md:w-[480px] md:h-[480px] mb-8 md:mb-0">
             <motion.div
               className="relative w-full h-full flex items-center justify-center"
               initial={{ opacity: 0, scale: 0.95 }}
