@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: 'Marcos Estevam | Especialista em Dados',
+  title: 'Marcos Estevam | Análise de Dados',
   description: 'Business Intelligence e Python.',
 };
 
