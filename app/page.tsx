@@ -24,10 +24,10 @@ const ImageCarousel = ({ images }: { images: string[] }) => {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    if (images.length <= 1) return; // Se tiver só 1 imagem, não faz o carrossel rodar
+    if (images.length <= 1) return;
     const timer = setInterval(() => {
       setIndex((prev) => (prev + 1) % images.length);
-    }, 3500); // Passa a foto a cada 3.5 segundos
+    }, 3500);
     return () => clearInterval(timer);
   }, [images]);
 
@@ -42,7 +42,7 @@ const ImageCarousel = ({ images }: { images: string[] }) => {
           transition={{ duration: 0.8 }}
           className="absolute inset-0"
         >
-          {/* Fallback caso a imagem não exista (para não quebrar seu site enquanto você não põe as fotos) */}
+          {/* Fallback caso a imagem não exista*/}
           {images[index] ? (
             <Image src={images[index]} alt="Dashboard" fill className="object-cover" />
           ) : (
@@ -51,7 +51,7 @@ const ImageCarousel = ({ images }: { images: string[] }) => {
         </motion.div>
       </AnimatePresence>
       
-      {/* Bolinhas indicadoras do carrossel (só aparecem se tiver mais de 1 foto) */}
+      {/* Bolinhas indicadoras do carrossel*/}
       {images.length > 1 && (
         <div className="absolute bottom-2 left-0 right-0 flex justify-center gap-1.5 z-10">
           {images.map((_, i) => (
@@ -63,7 +63,7 @@ const ImageCarousel = ({ images }: { images: string[] }) => {
   );
 };
 
-// --- SEUS PROJETOS REAIS (COM FOTOS E LINKS) ---
+// --- MEUS PROJETOS REAIS ---
 const dashboards = [
   {
     id: 1,
@@ -106,11 +106,16 @@ export default function Portfolio() {
   const [githubProjects, setGithubProjects] = useState<any[]>([]);
   const [isDissolving, setIsDissolving] = useState(false);
 
-  useEffect(() => {
+useEffect(() => {
     fetch('https://api.github.com/users/Frsfd12/repos?sort=updated&per_page=6')
       .then(res => res.json())
       .then(data => {
-        if (Array.isArray(data)) setGithubProjects(data.filter(repo => !repo.fork));
+        if (Array.isArray(data)) {
+          const projetosFiltrados = data.filter(
+            repo => !repo.fork && repo.name !== 'portfolio-marcos'
+          );
+          setGithubProjects(projetosFiltrados);
+        }
       })
       .catch(console.error);
   }, []);
@@ -125,7 +130,7 @@ export default function Portfolio() {
   };
 
   return (
-    // FUNDO OLIVE-200 BASE (#e6e8e3)
+    // FUNDO OLIVE-200 BASE
     <div className="min-h-screen bg-[#e6e8e3] text-zinc-900 selection:bg-orange-100 font-sans overflow-x-hidden">
       
       {/* 1. HERO SECTION */}
@@ -234,7 +239,7 @@ export default function Portfolio() {
       </section>
 
       {/* =========================================
-          2. DASHBOARDS SECTION (Com Animação de Fundo)
+          2. DASHBOARDS SECTION
           ========================================= */}
       <section id="dashboards" className="relative w-full py-32 overflow-hidden">
         
@@ -282,7 +287,7 @@ export default function Portfolio() {
       </section>
 
       {/* =========================================
-          3. GITHUB SECTION (Com Animação de Fundo)
+          3. GITHUB SECTION 
           ========================================= */}
       <section id="codigo" className="relative w-full py-32 overflow-hidden">
         
@@ -321,7 +326,7 @@ export default function Portfolio() {
       </section>
 
       {/* =========================================
-          4. TESTIMONIALS SECTION (Com Animação de Fundo e Texto Aprimorado)
+          4. TESTIMONIALS SECTION
           ========================================= */}
       <section id="recomendacoes" className="relative w-full py-32 overflow-hidden">
         
@@ -367,7 +372,7 @@ export default function Portfolio() {
       </section>
 
       {/* =========================================
-          5. CONTACT & FORM (Conectado ao Formspree real)
+          5. CONTACT & FOR
           ========================================= */}
       <section id="contato" className="py-32 px-6 max-w-7xl mx-auto border-t border-zinc-300/30 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -386,7 +391,7 @@ export default function Portfolio() {
 
           <div className="bg-white/90 p-8 md:p-10 rounded-3xl border border-orange-100 shadow-xl shadow-orange-950/5 backdrop-blur-md">
             
-            {/* Link do Formspree injetado aqui */}
+            {}
             <form action="https://formspree.io/f/xojkygvj" method="POST" className="flex flex-col gap-6">
               
               <div>
@@ -415,12 +420,12 @@ export default function Portfolio() {
       </section>
 
       {/* =========================================
-          RODAPÉ (Com Ícone do WhatsApp)
+          RODAPÉ
           ========================================= */}
       <footer className="py-12 flex flex-col items-center justify-center gap-6 border-t border-zinc-300/30 relative z-10 bg-white/20 backdrop-blur-sm">
         
         <a 
-          href="https://wa.me/5521971083014" // Lembre-se de colocar seu número real aqui!
+          href="https://wa.me/5521971083014"
           target="_blank" 
           rel="noopener noreferrer" 
           className="flex items-center gap-2.5 text-base font-bold text-white transition-all bg-[#25D366] px-8 py-3.5 rounded-full shadow-lg shadow-[#25D366]/30 hover:bg-[#20b859] hover:scale-105 active:scale-95 group"
