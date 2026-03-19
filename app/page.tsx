@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
 import { ArrowRight, BarChart3, TerminalSquare, Github, Linkedin, Mail, ExternalLink, Send, ChevronDown, Sparkles, Brain, TrendingUp, Database, Code, Zap, Award, Briefcase, Users } from 'lucide-react';
 import Image from 'next/image';
 
@@ -111,6 +111,8 @@ const skills = [
 ];
 
 export default function Portfolio() {
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
   const [githubProjects, setGithubProjects] = useState<any[]>([]);
   const [isDissolving, setIsDissolving] = useState(false);
   const [formStatus, setFormStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
@@ -170,6 +172,12 @@ export default function Portfolio() {
 
   return (
     <div className="min-h-screen bg-[#e6e8e3] text-zinc-900 selection:bg-orange-100 font-sans overflow-x-hidden">
+
+      {/* BARRA DE PROGRESSO DE SCROLL NO TOPO */}
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-1.5 bg-orange-500 z-50 origin-left shadow-md shadow-orange-500/50"
+        style={{ scaleX }}
+      />
       
       {/* 1. HERO SECTION */}
       <section className="relative flex flex-col items-center justify-center min-h-screen px-6 py-20 overflow-hidden">
