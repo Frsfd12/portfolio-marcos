@@ -177,14 +177,14 @@ export default function Portfolio() {
     {
       title: 'A Fundação UFMG',
       role: 'Administração & Pesquisa Operacional',
-      text: 'Onde minha visão estratégica de negócios nasceu. Descobri minha vocação ao explorar a Pesquisa Operacional e aplicar Python no projeto Milhagem UFMG para desafios reais de análise de dados.',
+      text: 'Onde minha visão estratégica de negócios nasceu. Descobri minha vocação ao explorar a Pesquisa Operacional na Iniciação Científica e aplicar Python no projeto Milhagem UFMG para desafios reais de análise de dados.',
       icon: <Award size={24} className="text-orange-500" />,
       delay: 0.1,
     },
     {
       title: 'Dominando o Stack Técnico',
       role: 'Engenharia de Dados & BI',
-      text: 'Tradução do conhecimento estratégico em soluções técnicas pesadas. Domínio prático de Python, SQL e Power BI para extrair, transformar e visualizar dados complexos de forma automatizada.',
+      text: 'Tradução do conhecimento estratégico em soluções técnicas em Big Data. Domínio prático de Python, SQL e Power BI para extrair, transformar e visualizar dados complexos de forma automatizada.',
       icon: <Zap size={24} className="text-orange-500" />,
       delay: 0.3,
     },
@@ -303,19 +303,16 @@ export default function Portfolio() {
                   Transformo dados em decisões com <span className="text-orange-700 font-medium">Dashboards Estratégicos</span>, automações eficientes em Python e análises que geram impacto real para o setor público e privado.
               </p>
               
-              <div className="flex flex-wrap gap-3 justify-center md:justify-start mb-8">
-                {skills.slice(0, 4).map(skill => (
-                  <span key={skill.name} className="flex items-center gap-1.5 px-3 py-1.5 bg-white/60 border border-orange-100 rounded-full text-xs font-medium text-zinc-700">
-                    {skill.icon} {skill.name}
-                  </span>
-                ))}
-              </div>
-              
-              <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4">
-                  <a href="#dashboards" onClick={handleVerProjetos} className="flex items-center gap-2 px-10 py-4 font-bold text-white transition-all bg-zinc-900 rounded-lg hover:bg-orange-600 hover:shadow-2xl hover:-translate-y-0.5 active:scale-95 group">
+              <div className="flex flex-wrap items-center justify-center md:justify-start gap-3">
+                  <a href="#dashboards" onClick={handleVerProjetos} className="flex items-center gap-2 px-8 py-3.5 font-bold text-white transition-all bg-zinc-900 rounded-lg hover:bg-orange-600 hover:shadow-xl hover:-translate-y-0.5 active:scale-95 group">
                       Ver Projetos <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
                   </a>
-                  <a href="#contato" className="flex items-center gap-2 px-10 py-4 font-bold transition-all border border-orange-200 bg-white/50 text-orange-600 rounded-lg hover:text-orange-700 hover:border-orange-400">
+                  
+                  <a href="#sobre" onClick={(e) => { e.preventDefault(); document.getElementById('sobre')?.scrollIntoView({ behavior: 'smooth' }); }} className="flex items-center gap-2 px-8 py-3.5 font-bold transition-all border border-orange-200 bg-white/50 text-orange-600 rounded-lg hover:text-orange-700 hover:border-orange-400 hover:-translate-y-0.5 shadow-sm">
+                      Sobre Mim
+                  </a>
+
+                  <a href="#contato" onClick={(e) => { e.preventDefault(); document.getElementById('contato')?.scrollIntoView({ behavior: 'smooth' }); }} className="flex items-center gap-2 px-6 py-3.5 font-medium transition-all text-zinc-500 hover:text-orange-600 rounded-lg hover:bg-orange-50/80 hover:-translate-y-0.5">
                       Contato
                   </a>
               </div>
