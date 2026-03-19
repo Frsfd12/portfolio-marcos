@@ -505,7 +505,7 @@ export default function Portfolio() {
                 <p className="text-zinc-800 text-lg mb-8 relative z-10 leading-relaxed font-medium">"{item.text}"</p>
                 <div className="flex items-center gap-4 border-t border-zinc-100 pt-6">
                   <div className="relative w-14 h-14 rounded-full overflow-hidden border-2 border-orange-100 shadow-inner">
-                    <Image src={item.avatar} alt={item.name} fill className="object-cover" priority />
+                    <Image src={item.avatar} alt={item.name} fill className="object-cover" />
                   </div>
                   <div>
                     <h4 className="font-bold text-zinc-950 text-base">{item.name}</h4>
