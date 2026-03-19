@@ -175,7 +175,7 @@ export default function Portfolio() {
   // Dados da Jornada (Timeline)
   const journeySteps = [
     {
-      title: 'A Fundação UFMG',
+      title: 'A UFMG enquanto trabalho de pesquisa e extensão',
       role: 'Administração & Pesquisa Operacional',
       text: 'Onde minha visão estratégica de negócios nasceu. Descobri minha vocação ao explorar a Pesquisa Operacional na Iniciação Científica e aplicar Python no projeto Milhagem UFMG para desafios reais de análise de dados.',
       icon: <Award size={24} className="text-orange-500" />,
