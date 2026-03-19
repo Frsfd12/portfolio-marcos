@@ -184,7 +184,7 @@ useEffect(() => {
                 }}
               >
                 <Image
-                  src="/foto-marcos.png"
+                  src="/fotoperfil.png"
                   alt="Marcos Estevam"
                   fill
                   className="object-cover grayscale-[30%] group-hover:grayscale-0 transition-all duration-700"
