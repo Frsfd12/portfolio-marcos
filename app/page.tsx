@@ -108,12 +108,12 @@ const testimonials = [
 
 // --- HABILIDADES EM DESTAQUE ---
 const skills = [
-  { name: 'Python', icon: <Code size={20} />, level: 90 },
+  { name: 'Python', icon: <Code size={20} />, level: 95 },
   { name: 'Power BI', icon: <BarChart3 size={20} />, level: 95 },
-  { name: 'SQL', icon: <Database size={20} />, level: 90 },
-  { name: 'Machine Learning', icon: <Brain size={20} />, level: 30 },
-  { name: 'Estatística', icon: <TrendingUp size={20} />, level: 80 },
-  { name: 'DAX', icon: <Zap size={20} />, level: 90 },
+  { name: 'SQL', icon: <Database size={20} />, level: 95 },
+  { name: 'Machine Learning', icon: <Brain size={20} />, level: 40 },
+  { name: 'Estatística', icon: <TrendingUp size={20} />, level: 70 },
+  { name: 'DAX', icon: <Zap size={20} />, level: 85 },
 ];
 
 export default function Portfolio() {
