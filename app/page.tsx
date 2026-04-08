@@ -97,6 +97,12 @@ const testimonials = [
     role: "Assessor de Gestão Estratégica e Qualidade - IPSEMG", 
     text: "Recomendo fortemente o Marcos pela sua excelente performance. Ele se destaca pela proatividade e pelo domínio técnico avançado em Excel, Python, Power BI e bancos de dados. Sua atuação foi fundamental em projetos estratégicos de alta complexidade... entregando análises que subsidiaram diretamente a tomada de decisão da nossa diretoria.",
     avatar: "/recomendacao-1.jpg" 
+  },
+  {id: 2,
+    name: "Felippe Fagioli",
+    role: "Diretor de Saúde do IPSEMG", 
+    text: "Marcos é um profissional excepcional que se destaca pela rápida capacidade de aprendizado e postura profissional. Durante nosso trabalho no Ipsemg, ele demonstrou grande facilidade em transformar desafios em entregas de alta qualidade, com forte atuação em programação e Business Intelligence. É um talento analítico, comprometido e com um futuro brilhante pela frente.",
+    avatar: "/recomendacao-2.jpg" 
   }
 ];
 
@@ -104,8 +110,8 @@ const testimonials = [
 const skills = [
   { name: 'Python', icon: <Code size={20} />, level: 90 },
   { name: 'Power BI', icon: <BarChart3 size={20} />, level: 95 },
-  { name: 'SQL', icon: <Database size={20} />, level: 85 },
-  { name: 'Machine Learning', icon: <Brain size={20} />, level: 70 },
+  { name: 'SQL', icon: <Database size={20} />, level: 90 },
+  { name: 'Machine Learning', icon: <Brain size={20} />, level: 30 },
   { name: 'Estatística', icon: <TrendingUp size={20} />, level: 80 },
   { name: 'DAX', icon: <Zap size={20} />, level: 90 },
 ];
